@@ -1,0 +1,144 @@
+<!-- Start block -->
+<section class="bg-gray-50 dark:bg-gray-900 rounded-lg sm:p-5 antialiased">
+    <div class="mx-auto max-w-screen-2xl px-4 ">
+        <br/>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+            Consulta de Vacaciones
+        </h2>
+        <br/>
+        <hr/>
+        <br/>
+        <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+            
+            <div class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4  dark:border-gray-700">
+                <div class="w-full flex items-center ">
+                    <div class="w-2/4 mr-8">
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Buscar por cédula</label>
+                        <div class="relative w-full ">                          
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                                </svg>
+                            </div>
+                            
+                            <input type="text" id="filtro" placeholder="Ingrese la cédula" [(ngModel)]="filtro" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </div>
+                    </div>
+                    <form class="flex items-center w-full" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                        <div class="w-full mr-8">
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de salida</label>
+                            <input  id="fechaSalida" formControlName="fechaSalida" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="" placeholder="Ingrese la fecha">
+                        </div>
+                        <div class="w-full  mr-8">
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de entrada</label>
+                            <input  id="fechaEntrada" formControlName="fechaEntrada" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="" placeholder="Ingrese la fecha">
+                        </div>
+                        <div class="w-full md:w-auto flex flex-col md:flex-row  items-stretch md:items-center justify-end flex-shrink-0 mt-6">
+                            <button  type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                Filtrar
+                            </button>  
+                            <button type="button" (click)="onReset()" class="py-2.5 px-5 me-2  text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                Reset
+                            </button>         
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="p-4">CÉDULA</th>
+                            <th scope="col" class="p-4">NOMBRE</th>
+                            <th scope="col" class="p-4">FECHA DE SOLICITUD</th>
+                            <th scope="col" class="p-2 text-center">NÚMERO DE DÍAS SOLICITADOS</th>
+                            <th scope="col" class="p-4">FECHA SALIDA</th>
+                            <th scope="col" class="p-4">FECHA ENTRADA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of listaVacaciones | filtro: 'cedula' : filtro " class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 ">
+                            <th scope="row" class="px-4 py-3 font-semibold  text-gray-700 whitespace-nowrap dark:text-white">
+                                <div class="flex items-center mr-3">  
+                                    <span class="bg-gray-100 text-gray-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded me-2 dark:bg-gray-700 dark:text-gray-400  ">
+                                        {{item.cedula}}
+                                        </span>                                
+                                   
+                                </div>
+                            </th>
+                            <td class="px-4 py-3">
+                                <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                    {{item.nombre}}
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 font-medium  text-gray-700 whitespace-nowrap dark:text-white">
+                                {{item.fechaSolicitud | date}}
+                            </td>
+                            <td class=" font-bold text-center text-gray-800 whitespace-nowrap dark:text-white">
+                                <span class="bg-blue-100 text-blue-800 text-xs font-bold me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                                    {{item.diasSolicitados}}
+
+                                </span>
+                            </td>
+                            <td class="px-4 py-3 font-medium  text-gray-700 whitespace-nowrap dark:text-white">
+                                <img src="../../../../assets/images/down.svg" class="table-icon">
+                                {{item.fechaSalida | date}}
+                            </td>
+                            <td class="px-4 py-3 font-medium  text-gray-700  whitespace-nowrap dark:text-white">
+                                <img src="../../../../assets/images/up.svg" class="table-icon">
+                                {{item.fechaEntrada | date}}
+                            </td>
+         
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
+                <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                    Mostrando
+                    <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
+                    of
+                    <span class="font-semibold text-gray-900 dark:text-white">1000</span>
+                </span>
+                <ul class="inline-flex items-stretch -space-x-px">
+                    <li>
+                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Previous</span>
+                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                    </li>
+                    <li>
+                        <a href="#" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span class="sr-only">Next</span>
+                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<app-modal [modalSwitch]="modalSwitch" [mensaje]="mensaje" [estado]="estado" (outputModalSwitch)="handleModalSwitch($event)"></app-modal>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>

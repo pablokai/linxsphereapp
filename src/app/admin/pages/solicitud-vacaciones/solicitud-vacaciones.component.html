@@ -1,0 +1,94 @@
+
+<br/>
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+    Solicitud de días de vacaciones
+</h2>
+<br/>
+<hr/>
+<br/>
+
+<form [formGroup]="formGroupBusqueda" (ngSubmit)="onSubmitBuscarEmpleado()">
+<div class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between py-4 ">
+    <div class="w-full md:w-1/2">
+        <div class="flex items-center">
+            <div class=" w-1/4 mr-1">
+                <label for="simple-search" class="text-base font-semibold" >Buscar un empleado</label>
+            </div>
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
+                    </svg>
+                </div>
+                <input type="text" id="cedula" formControlName="cedula" placeholder="Ingrese la cédula" required="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            </div>
+        </div>
+    </div>
+    <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+        <button  type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            Buscar
+        </button>           
+    </div>
+</div>
+</form>
+
+
+<div *ngIf="mostrarDetalle && empleado.cedula !== null && empleado.diasDisponibles > 0"  class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+
+    <div class="flex items-center justify-between">
+        <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">{{empleado.cedula }}</h5>
+        <div>
+            <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3 block">Días Disponibles</span>
+            <br/>
+            <span class="text-4xl font-extrabold tracking-tight ms-3 block text-right">{{empleado.diasDisponibles }}</span>
+        </div>     
+   </div>
+    <div class="flex items-baseline text-gray-900 dark:text-white">
+        <span class="text-5xl font-extrabold tracking-tight">{{empleado.primerNombre + ' ' + empleado.primerApellido + ' '+ empleado.segundoApellido}}</span>
+    </div>
+    <ul role="list" class="space-y-5 my-7">
+        <li class="flex items-center">
+            <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+            </svg>
+            <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">Fecha Ingreso</span>
+           
+        </li>
+        <p class="text-base font-semibold text-gray-900 truncate dark:text-white pl-8">
+            {{empleado.fechaIngreso | date}}
+        </p>
+        <li class="flex">
+        <svg class="flex-shrink-0 w-4 h-4 text-blue-700 dark:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+        </svg>
+        <span class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400 ms-3">Puesto</span>
+        </li>
+        <p class="text-base font-semibold text-gray-900 truncate dark:text-white pl-8">
+            {{empleado.puesto}}
+        </p>
+    </ul>
+    <form [formGroup]="formGroupSolicitarDias" (ngSubmit)="onSubmitSolicitarDias()">
+        <div class="w-1/4">
+            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Salida</label>
+            <input datepicker id="fechaSalida" formControlName="fechaSalida" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="" placeholder="Select date">
+            <br/>
+            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Entrada</label>
+            <input datepicker id="fechaEntrada" formControlName="fechaEntrada" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="" placeholder="Select date">
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6"> 
+            <div class="w-full">                
+            </div>
+            <div class="w-full">
+                <button type="submit" class="inline-flex float-right px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                    Solicitar días
+                </button>
+            </div>
+        </div>
+    </form>
+    
+</div>
+
+<app-modal [modalSwitch]="modalSwitch" [mensaje]="mensaje" [estado]="estado" (outputModalSwitch)="handleModalSwitch($event)"></app-modal>
+<!-- se usa property binding, se pasan los value input y se igualan a variables del parent -->
+ <!-- se setea la variable output para recibir desdee child el valor de vuelta al ejecutar el metodo descrito -->
+    

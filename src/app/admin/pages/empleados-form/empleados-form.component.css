@@ -1,0 +1,6 @@
+.back-section{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3vh;
+    color: #6B7280;
+}
